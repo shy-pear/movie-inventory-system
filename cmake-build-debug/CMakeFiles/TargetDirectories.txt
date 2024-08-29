@@ -1,0 +1,3 @@
+/Users/skylat/Downloads/perfectMovieProject 3/cmake-build-debug/CMakeFiles/perfectMovieProject_2.dir
+/Users/skylat/Downloads/perfectMovieProject 3/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/skylat/Downloads/perfectMovieProject 3/cmake-build-debug/CMakeFiles/rebuild_cache.dir

@@ -1,0 +1,10 @@
+F, 10, Nora Ephron, You've Got Mail, 1998
+F, 30, Emma Watson, Beauty and the Beast, 2020
+D, 3, Johnny Baloney, Life of PI, 2018
+D, 10, Johnny Baloney, Life of E, 2019
+D, 10, Steven Spielberg, Schindler's List, 1993
+C, 10, George Cukor, Holiday, Katherine Hepburn 9 1938
+C, 10, George Cukor, Holiday, Cary Grant 9 1938
+C, 10, Toby Wankanobi, Not a Holiday, Mary Matson 8 1983
+Z, 10, Hal Ashby, Harold and Maude, Ruth Gordon 2 1971
+D, 10, Phillippe De Broca, King of Hearts, 1967

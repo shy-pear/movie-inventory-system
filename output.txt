@@ -1,0 +1,454 @@
+Mon Dec  5 23:51:41 PST 2022
+Linux csslab7 4.18.0-372.32.1.el8_6.x86_64 #1 SMP Thu Oct 27 15:18:36 UTC 2022 x86_64 x86_64 x86_64 GNU/Linux
+uid=1059832(manuss) gid=2121059832(manuss) groups=2121059832(manuss),605559(lab-access)
+=====================================================
+1. Compiles without warnings with -Wall -Wextra flags
+=====================================================
+Drama.cpp: In constructor ‘Drama::Drama(char, int, std::__cxx11::string, std::__cxx11::string, int)’:
+Drama.cpp:17:18: warning: unused parameter ‘releaseYear’ [-Wunused-parameter]
+              int releaseYear) {
+              ~~~~^~~~~~~~~~~
+=====================================================
+2. Runs and produces correct output
+=====================================================
+ERROR: Invalid Movie Type: Z. Cannot Add Movie.
+could not add customer profile 1000 Imposter Minnie
+could not add customer profile 1111 Imposter Mickey
+ERROR: Movie not available in system.
+Discarding Command: B 0001 D C 9 1938 Katherine Hepburn
+ERROR: Movie not available in system.
+Discarding Command: B 0002 D F Pirates of the Caribbean, 2003
+ERROR: Movie not available in system.
+Discarding Command: R 0001 D C 9 1938 Katherine Hepburn
+------CATEGORY: Comedy-----
+30 0 D Beauty and the Beast 2020
+10 0 D You've Got Mail 1998
+
+------CATEGORY: Drama-----
+10 0 D Johnny Baloney Life of E
+3 0 D Johnny Baloney Life of PI
+10 0 D Phillippe De Broca King of Hearts
+9 1 D Steven Spielberg Schindler's List
+
+------CATEGORY: Classic-----
+10 0 D 8 1938 Hepburn Katherine
+10 0 D 9 1938 Grant Cary
+10 0 D 8 1983 Matson Mary
+
+ERROR: Customer 1234 does not exist. Cannot retrieve history.
+ERROR: Invalid Command Type.
+Discarding Command: X 1234 Z C 9 1938 Katherine Hepburn
+ERROR: Customer does not exist.
+Discarding Command: B 1234 D Y 2 1971 Ruth Gordon
+ERROR: Customer does not exist.
+Discarding Command: B 9999 D F Pirates of the Caribbean, 2003
+ERROR: Customer does not exist.
+Discarding Command: B 1234 D C 2 1975 Blah Blah
+Success! Tests complete
+=====================================================
+3. clang-tidy warnings are fixed
+=====================================================
+=====================================================
+4. clang-format does not find any formatting issues
+=====================================================
+Running clang-format on ./ClassicBuilder.cpp
+Running clang-format on ./Classic.cpp
+Running clang-format on ./ComedyBuilder.cpp
+Running clang-format on ./Comedy.cpp
+Running clang-format on ./DramaBuilder.cpp
+Running clang-format on ./Drama.cpp
+Running clang-format on ./HashTable.cpp
+Running clang-format on ./main.cpp
+Running clang-format on ./MovieBuilder.cpp
+Running clang-format on ./Movie.cpp
+Running clang-format on ./MovieCustomer.cpp
+7,14c7,14
+< bool operator== (const MovieCustomer& person, const MovieCustomer& otherPerson) {
+<     if (person.getFirstName() == otherPerson.getFirstName() &&
+<         person.getLastName() == otherPerson.getLastName() &&
+<         person.getIDNumber() == otherPerson.getIDNumber()) {
+<         return true;
+<     } else {
+<         return false;
+<     }
+---
+> bool operator==(const MovieCustomer &person, const MovieCustomer &otherPerson) {
+>   if (person.getFirstName() == otherPerson.getFirstName() &&
+>       person.getLastName() == otherPerson.getLastName() &&
+>       person.getIDNumber() == otherPerson.getIDNumber()) {
+>     return true;
+>   } else {
+>     return false;
+>   }
+18,20c18,20
+<     this->ID = ID;
+<     this->firstName = first;
+<     this->lastName = last;
+---
+>   this->ID = ID;
+>   this->firstName = first;
+>   this->lastName = last;
+23,24c23
+< MovieCustomer::~MovieCustomer() {
+< }
+---
+> MovieCustomer::~MovieCustomer() {}
+27,28c26,27
+<     std::string name = this->firstName;
+<     return name;
+---
+>   std::string name = this->firstName;
+>   return name;
+32,33c31,32
+<     std::string name = this->lastName;
+<     return name;
+---
+>   std::string name = this->lastName;
+>   return name;
+37,38c36,37
+<     int number = this->ID;
+<     return number;
+---
+>   int number = this->ID;
+>   return number;
+40d38
+< 
+Running clang-format on ./MovieCustomerDatabase.cpp
+Running clang-format on ./MovieDatabase.cpp
+=====================================================
+5. No memory leaks using g++
+=====================================================
+=====================================================
+6. No memory leaks using valgrind, look for "definitely lost" 
+=====================================================
+==169171== Memcheck, a memory error detector
+==169171== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==169171== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==169171== Command: ./a.out
+==169171== Parent PID: 169039
+==169171== 
+==169171== 
+==169171== HEAP SUMMARY:
+==169171==     in use at exit: 1,187 bytes in 23 blocks
+==169171==   total heap usage: 207 allocs, 184 frees, 110,801 bytes allocated
+==169171== 
+==169171== LEAK SUMMARY:
+==169171==    definitely lost: 1,032 bytes in 18 blocks
+==169171==    indirectly lost: 155 bytes in 5 blocks
+==169171==      possibly lost: 0 bytes in 0 blocks
+==169171==    still reachable: 0 bytes in 0 blocks
+==169171==         suppressed: 0 bytes in 0 blocks
+==169171== Rerun with --leak-check=full to see details of leaked memory
+==169171== 
+==169171== For lists of detected and suppressed errors, rerun with: -s
+==169171== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+=====================================================
+7. Tests have full code coverage
+=====================================================
+File '/home/NETID/manuss/343proj/hw5/ClassicBuilder.cpp':
+Name                                                                                                         Regions    Miss   Cover     Lines    Miss   Cover  Branches    Miss   Cover
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ClassicBuilder::parseLine(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >)         1       0 100.00%        11       0 100.00%         0       0   0.00%
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+TOTAL                                                                                                              1       0 100.00%        11       0 100.00%         0       0   0.00%
+
+File '/home/NETID/manuss/343proj/hw5/Classic.cpp':
+Name                                                                                                                                                                                                                                                                                       Regions    Miss   Cover     Lines    Miss   Cover  Branches    Miss   Cover
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Classic::Classic(char, int, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, int, int)         1       0 100.00%         9       0 100.00%         0       0   0.00%
+Classic::getReleaseMonth() const                                                                                                                                                                                                                                                                 1       0 100.00%         4       0 100.00%         0       0   0.00%
+Classic::getReleaseYear() const                                                                                                                                                                                                                                                                  1       0 100.00%         4       0 100.00%         0       0   0.00%
+Classic::getMajorActor[abi:cxx11]() const                                                                                                                                                                                                                                                        1       0 100.00%         4       0 100.00%         0       0   0.00%
+Classic::~Classic()                                                                                                                                                                                                                                                                              1       0 100.00%         1       0 100.00%         0       0   0.00%
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+TOTAL                                                                                                                                                                                                                                                                                            5       0 100.00%        22       0 100.00%         0       0   0.00%
+
+File '/home/NETID/manuss/343proj/hw5/ComedyBuilder.cpp':
+Name                                                                                                                                                                                                                                                                                       Regions    Miss   Cover     Lines    Miss   Cover  Branches    Miss   Cover
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ComedyBuilder::parseLine(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >)                                                                                                                                                                                        1       0 100.00%         9       0 100.00%         0       0   0.00%
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+TOTAL                                                                                                                                                                                                                                                                                            1       0 100.00%         9       0 100.00%         0       0   0.00%
+
+File '/home/NETID/manuss/343proj/hw5/Comedy.cpp':
+Name                                                                                                                                                                                                                                                                                       Regions    Miss   Cover     Lines    Miss   Cover  Branches    Miss   Cover
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Comedy::Comedy(char, int, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, int)                                                                                                 1       0 100.00%         7       0 100.00%         0       0   0.00%
+operator<(Comedy const&, Comedy const&)                                                                                                                                                                                                                                                         13      13   0.00%        16      16   0.00%         8       8   0.00%
+Comedy::~Comedy()                                                                                                                                                                                                                                                                                1       0 100.00%         1       0 100.00%         0       0   0.00%
+Comedy::getReleaseYear() const                                                                                                                                                                                                                                                                   1       1   0.00%         4       4   0.00%         0       0   0.00%
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+TOTAL                                                                                                                                                                                                                                                                                           16      14  12.50%        28      20  28.57%         8       8   0.00%
+
+File '/home/NETID/manuss/343proj/hw5/DramaBuilder.cpp':
+Name                                                                                                                                                                                                                                                                                       Regions    Miss   Cover     Lines    Miss   Cover  Branches    Miss   Cover
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+DramaBuilder::parseLine(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >)                                                                                                                                                                                         1       0 100.00%         9       0 100.00%         0       0   0.00%
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+TOTAL                                                                                                                                                                                                                                                                                            1       0 100.00%         9       0 100.00%         0       0   0.00%
+
+File '/home/NETID/manuss/343proj/hw5/Drama.cpp':
+Name                                                                                                                                                                                                                                                                                       Regions    Miss   Cover     Lines    Miss   Cover  Branches    Miss   Cover
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Drama::Drama(char, int, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, int)                                                                                                   1       0 100.00%         6       0 100.00%         0       0   0.00%
+Drama::~Drama()                                                                                                                                                                                                                                                                                  1       0 100.00%         1       0 100.00%         0       0   0.00%
+operator<(Drama const&, Drama const&)                                                                                                                                                                                                                                                           13      13   0.00%        16      16   0.00%         8       8   0.00%
+Drama::getReleaseDate()                                                                                                                                                                                                                                                                          1       1   0.00%         4       4   0.00%         0       0   0.00%
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+TOTAL                                                                                                                                                                                                                                                                                           16      14  12.50%        27      20  25.93%         8       8   0.00%
+
+File '/home/NETID/manuss/343proj/hw5/HashTable.cpp':
+Name                                                                                                                                                                                                                                                                                       Regions    Miss   Cover     Lines    Miss   Cover  Branches    Miss   Cover
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+HashTable<std::vector<Movie*, std::allocator<Movie*> > >::insert(char, std::vector<Movie*, std::allocator<Movie*> >&)                                                                                                                                                                            7       4  42.86%        13       6  53.85%         4       3  25.00%
+HashTable<std::vector<Movie*, std::allocator<Movie*> > >::hashFunction(char)                                                                                                                                                                                                                     1       0 100.00%         3       0 100.00%         0       0   0.00%
+HashTable<std::vector<Movie*, std::allocator<Movie*> > >::get(char)                                                                                                                                                                                                                              7       2  71.43%        13       2  84.62%         4       2  50.00%
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+TOTAL                                                                                                                                                                                                                                                                                           15       6  60.00%        29       8  72.41%         8       5  37.50%
+
+File '/home/NETID/manuss/343proj/hw5/main.cpp':
+Name                                                                                                                                                                                                                                                                                       Regions    Miss   Cover     Lines    Miss   Cover  Branches    Miss   Cover
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+readCommandFile(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, MovieDatabase&, MovieCustomerDatabase&)                                                                                                                                                        16       1  93.75%        42       4  90.48%        16       1  93.75%
+originalTest()                                                                                                                                                                                                                                                                                   1       1   0.00%        30      30   0.00%         0       0   0.00%
+main                                                                                                                                                                                                                                                                                             4       1  75.00%        11       2  81.82%         2       1  50.00%
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+TOTAL                                                                                                                                                                                                                                                                                           21       3  85.71%        83      36  56.63%        18       2  88.89%
+
+File '/home/NETID/manuss/343proj/hw5/MovieBuilder.cpp':
+Name                                                                                                                                                                                                                                                                                       Regions    Miss   Cover     Lines    Miss   Cover  Branches    Miss   Cover
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+MovieBuilder::getWord(std::__cxx11::basic_stringstream<char, std::char_traits<char>, std::allocator<char> >&, char)                                                                                                                                                                              4       0 100.00%        10       0 100.00%         2       0 100.00%
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+TOTAL                                                                                                                                                                                                                                                                                            4       0 100.00%        10       0 100.00%         2       0 100.00%
+
+File '/home/NETID/manuss/343proj/hw5/Movie.cpp':
+Name                                                                                                                                                                                                                                                                                       Regions    Miss   Cover     Lines    Miss   Cover  Branches    Miss   Cover
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Movie::Movie()                                                                                                                                                                                                                                                                                   1       0 100.00%         1       0 100.00%         0       0   0.00%
+Movie::Movie(Movie&)                                                                                                                                                                                                                                                                             1       0 100.00%         7       0 100.00%         0       0   0.00%
+Movie::getCategory() const                                                                                                                                                                                                                                                                       1       0 100.00%         4       0 100.00%         0       0   0.00%
+Movie::getInStock() const                                                                                                                                                                                                                                                                        1       0 100.00%         4       0 100.00%         0       0   0.00%
+Movie::getOutStock() const                                                                                                                                                                                                                                                                       1       0 100.00%         4       0 100.00%         0       0   0.00%
+Movie::getDirector[abi:cxx11]() const                                                                                                                                                                                                                                                            1       0 100.00%         4       0 100.00%         0       0   0.00%
+Movie::getTitle[abi:cxx11]() const                                                                                                                                                                                                                                                               1       0 100.00%         4       0 100.00%         0       0   0.00%
+Movie::addStock()                                                                                                                                                                                                                                                                                4       4   0.00%        10      10   0.00%         2       2   0.00%
+Movie::removeStock()                                                                                                                                                                                                                                                                             4       1  75.00%        10       3  70.00%         2       1  50.00%
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+TOTAL                                                                                                                                                                                                                                                                                           15       5  66.67%        48      13  72.92%         4       3  25.00%
+
+File '/home/NETID/manuss/343proj/hw5/MovieCustomer.cpp':
+Name                                                                                                                                                                                                                                                                                       Regions    Miss   Cover     Lines    Miss   Cover  Branches    Miss   Cover
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+operator==(MovieCustomer const&, MovieCustomer const&)                                                                                                                                                                                                                                           8       8   0.00%         9       9   0.00%         8       8   0.00%
+MovieCustomer::MovieCustomer(int, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >)                                                                                              1       0 100.00%         5       0 100.00%         0       0   0.00%
+MovieCustomer::~MovieCustomer()                                                                                                                                                                                                                                                                  1       0 100.00%         2       0 100.00%         0       0   0.00%
+MovieCustomer::getFirstName[abi:cxx11]() const                                                                                                                                                                                                                                                   1       1   0.00%         4       4   0.00%         0       0   0.00%
+MovieCustomer::getLastName[abi:cxx11]() const                                                                                                                                                                                                                                                    1       1   0.00%         4       4   0.00%         0       0   0.00%
+MovieCustomer::getIDNumber() const                                                                                                                                                                                                                                                               1       0 100.00%         4       0 100.00%         0       0   0.00%
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+TOTAL                                                                                                                                                                                                                                                                                           13      10  23.08%        28      17  39.29%         8       8   0.00%
+
+File '/home/NETID/manuss/343proj/hw5/MovieCustomerDatabase.cpp':
+Name                                                                                                                                                                                                                                                                                       Regions    Miss   Cover     Lines    Miss   Cover  Branches    Miss   Cover
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+MovieCustomerDatabase::MovieCustomerDatabase()                                                                                                                                                                                                                                                   1       1   0.00%         1       1   0.00%         0       0   0.00%
+MovieCustomerDatabase::MovieCustomerDatabase(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >)                                                                                                                                                                    1       0 100.00%         3       0 100.00%         0       0   0.00%
+MovieCustomerDatabase::readCustomerFile(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >)                                                                                                                                                                         8       1  87.50%        18       3  83.33%         6       1  83.33%
+MovieCustomerDatabase::customerExist(int)                                                                                                                                                                                                                                                        7       0 100.00%         8       0 100.00%         4       0 100.00%
+MovieCustomerDatabase::addCustomer(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >)                                                                                                                                                                              4       0 100.00%        14       0 100.00%         2       0 100.00%
+MovieCustomerDatabase::addTransaction(int, char, Movie*)                                                                                                                                                                                                                                         1       0 100.00%         4       0 100.00%         0       0   0.00%
+MovieCustomerDatabase::getHistory(int)                                                                                                                                                                                                                                                           7       4  42.86%        15       9  40.00%         4       3  25.00%
+MovieCustomerDatabase::displayAllCustomers()                                                                                                                                                                                                                                                     4       4   0.00%         5       5   0.00%         2       2   0.00%
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+TOTAL                                                                                                                                                                                                                                                                                           33      10  69.70%        68      18  73.53%        18       6  66.67%
+
+File '/home/NETID/manuss/343proj/hw5/MovieDatabase.cpp':
+Name                                                                                                                                                                                                                                                                                       Regions    Miss   Cover     Lines    Miss   Cover  Branches    Miss   Cover
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+MovieDatabase::MovieDatabase()                                                                                                                                                                                                                                                                   1       0 100.00%         8       0 100.00%         0       0   0.00%
+MovieDatabase::MovieDatabase(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >)                                                                                                                                                                                    1       0 100.00%         3       0 100.00%         0       0   0.00%
+MovieDatabase::readMovieFile(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >)                                                                                                                                                                                    8       1  87.50%        18       3  83.33%         6       1  83.33%
+MovieDatabase::addMovie(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >)                                                                                                                                                                                         6       0 100.00%        25       0 100.00%         8       0 100.00%
+MovieDatabase::lendMovie(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, MovieCustomerDatabase&)                                                                                                                                                               10       1  90.00%        24       2  91.67%         6       1  83.33%
+MovieDatabase::returnMovie(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, MovieCustomerDatabase&)                                                                                                                                                             10       5  50.00%        24      11  54.17%         6       4  33.33%
+MovieDatabase::getInventory()                                                                                                                                                                                                                                                                    4       0 100.00%        18       0 100.00%         6       0 100.00%
+MovieDatabase::getMovie(std::__cxx11::basic_stringstream<char, std::char_traits<char>, std::allocator<char> >&, char)                                                                                                                                                                           26       5  80.77%        46       8  82.61%        34      10  70.59%
+MovieDatabase::getWord(std::__cxx11::basic_stringstream<char, std::char_traits<char>, std::allocator<char> >&, char)                                                                                                                                                                             4       0 100.00%        10       0 100.00%         2       0 100.00%
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+TOTAL                                                                                                                                                                                                                                                                                           70      12  82.86%       176      24  86.36%        68      16  76.47%
+=====================================================
+The lines below were never executed
+=====================================================
+   45|      0|    return this->getMajorActor() < cmovie.getMajorActor();
+   31|      0|bool operator<(const Comedy &movieOne, const Comedy &movieTwo) {
+   32|      0|  std::cout << "Inside < operator Comedy" << std::endl;
+   33|      0|  if (movieOne.getTitle() < movieTwo.getTitle()) {
+   34|      0|    return true;
+   35|      0|  }
+   36|      0|  if (movieOne.getTitle() > movieTwo.getTitle()) {
+   37|      0|    return false;
+   38|      0|  }
+   39|      0|  if (movieOne.getReleaseYear() < movieTwo.getReleaseYear()) {
+   40|      0|    return true;
+   41|      0|  }
+   42|      0|  if (movieOne.getReleaseYear() > movieTwo.getReleaseYear()) {
+   43|      0|    return false;
+   44|      0|  }
+   45|      0|  return true;
+   46|      0|}
+   56|      0|int Comedy::getReleaseYear() const {
+   57|      0|  int year = this->releaseYear;
+   58|      0|  return year;
+   59|      0|}
+   38|      0|    return this->getReleaseYear() < fmovie.getReleaseYear();
+   33|      0|bool operator<(const Drama &movieOne, const Drama &movieTwo) {
+   34|      0|  std::cout << "Inside < operator Drama" << std::endl;
+   35|      0|  if (movieOne.getDirector() < movieTwo.getDirector()) {
+   36|      0|    return true;
+   37|      0|  }
+   38|      0|  if (movieOne.getDirector() > movieTwo.getDirector()) {
+   39|      0|    return false;
+   40|      0|  }
+   41|      0|  if (movieOne.getTitle() < movieTwo.getTitle()) {
+   42|      0|    return true;
+   43|      0|  }
+   44|      0|  if (movieOne.getTitle() > movieTwo.getTitle()) {
+   45|      0|    return false;
+   46|      0|  }
+   47|      0|  return true;
+   48|      0|}
+   52|      0|int Drama::getReleaseDate() {
+   53|      0|  int year = this->releaseDate;
+   54|      0|  return year;
+   55|      0|}
+   46|      0|    if (it->first == key) {
+   47|      0|      it->second = value;
+   48|      0|      cout << "Warning: key value has been replaced" << endl;
+   49|      0|      return false;
+   50|      0|    }
+   51|      0|  }
+   94|      0|  cout << "Item not found" << endl;
+   95|      0|  return it->second;
+   51|      0|int Movie::addStock() {
+   52|      0|  if (!(outStock <= 0)) {
+   53|      0|    inStock++;
+   54|      0|    outStock--;
+   55|      0|    return 1;
+   56|      0|  } else {
+   57|      0|    std::cout << "ERROR: Stock is full." << std::endl;
+   58|      0|    return 0;
+   59|      0|  }
+   60|      0|}
+   68|      0|    std::cout << "ERROR: no more of this movie left!" << std::endl;
+   69|      0|    return 0;
+   70|      0|  }
+    7|      0|bool operator== (const MovieCustomer& person, const MovieCustomer& otherPerson) {
+    8|      0|    if (person.getFirstName() == otherPerson.getFirstName() &&
+    9|      0|        person.getLastName() == otherPerson.getLastName() &&
+   10|      0|        person.getIDNumber() == otherPerson.getIDNumber()) {
+   11|      0|        return true;
+   12|      0|    } else {
+   13|      0|        return false;
+   14|      0|    }
+   15|      0|}
+   26|      0|std::string MovieCustomer::getFirstName() const {
+   27|      0|    std::string name = this->firstName;
+   28|      0|    return name;
+   29|      0|}
+   31|      0|std::string MovieCustomer::getLastName() const {
+   32|      0|    std::string name = this->lastName;
+   33|      0|    return name;
+   34|      0|}
+   21|      0|  std::ostream &display(std::ostream &COUT) const {
+   22|      0|    COUT << this->ID << " " << this->firstName << " " << this->lastName
+   23|      0|         << std::endl;
+   24|      0|    return COUT;
+   25|      0|  }
+   28|      0|  friend std::ostream &operator<<(std::ostream &COUT, const MovieCustomer &oh) {
+   29|      0|    return oh.display(COUT);
+   30|      0|  }
+   19|      0|MovieCustomerDatabase::MovieCustomerDatabase(){};
+   29|      0|    std::cout << "ERROR: Could not open file." << std::endl;
+   30|      0|    return false;
+   31|      0|  }
+  110|      0|  std::cout << "--------HISTORY OF CUSTOMER: " << id << "---------"
+  111|      0|            << std::endl;
+  112|      0|  std::vector<std::pair<char, Movie *>> transactionList =
+  113|      0|      customerHistoryMap[id];
+  114|      0|  for (int i = transactionList.size() - 1; i >= 0; i--) {
+  115|      0|    std::cout << "Command: " << transactionList[i].first
+  116|      0|              << ", Movie: " << *(transactionList[i].second) << std::endl;
+  117|      0|  }
+  118|      0|}
+  125|      0|void MovieCustomerDatabase::displayAllCustomers() {
+  126|      0|  for (int i = 0; i < customerList.size(); i++) {
+  127|      0|    std::cout << customerList[i];
+  128|      0|  }
+  129|      0|}
+   45|      0|    cout << "ERROR: Could not open file." << endl;
+   46|      0|    return false;
+   47|      0|  }
+  131|      0|    cout << "Discarding Command: " << borrowLine << endl;
+  132|      0|  }
+  152|      0|    cout << "ERROR: Customer does not exist." << endl;
+  153|      0|    cout << "Discarding Command: " << returnLine << endl;
+  154|      0|    return;
+  155|      0|  }
+  167|      0|  int isNotFullStock = movieToReturn->addStock();
+  168|      0|  if (isNotFullStock != 0) {
+  169|      0|    mcd.addTransaction(customerID, 'R', movieToReturn);
+  170|      0|  } else {
+  171|      0|    cout << "Discarding Command: " << returnLine << endl;
+  172|      0|  }
+  174|      0|  return;
+  217|      0|        return movie;
+  218|      0|      }
+  234|      0|    cout << "ERROR: Movie not available in system." << endl;
+  235|      0|    break;
+  248|      0|        return movie;
+  249|      0|      }
+  254|      0|  default:
+  255|      0|    cout << "ERROR: Movie type not valid." << endl;
+   19|      0|    cout << "ERROR: Could not open file." << endl;
+   20|      0|    return false;
+   21|      0|  }
+   48|      0|      }
+   63|      0|int originalTest() {
+   64|      0|  std::cout << "****************************************************"
+   65|      0|            << std::endl;
+   66|      0|  std::cout << "TESTING MOVIE DATABASE" << std::endl;
+   67|      0|  MovieDatabase MD("movieFile.txt");
+   68|      0|  cout << endl;
+   69|      0|  MD.getInventory();
+   70|      0|  std::cout << "****************************************************"
+   71|      0|            << std::endl;
+   72|      0|  std::cout << "TESTING MOVIE CUSTOMERS" << std::endl;
+   73|      0|  MovieCustomer manaswee(0001, "manaswee", "is cool");
+   74|      0|  MovieCustomer skyla(0002, "skyla", "is cool");
+   75|      0|  std::cout << manaswee;
+   76|      0|  std::cout << skyla;
+   77|      0|  std::cout << "****************************************************"
+   78|      0|            << std::endl;
+   79|      0|  MovieCustomerDatabase MCD;
+   80|      0|  MCD.addCustomer("1111 Mouse Mickey");
+   81|      0|  MCD.addCustomer("1000 Mouse Minnie");
+   82|      0|  MCD.displayAllCustomers();
+   83|      0|  MD.lendMovie("B 1111 D C 9 1938 Katherine Hepburn", MCD);
+   84|      0|  MD.returnMovie("R 1111 D F You've Got Mail, 1998", MCD);
+   85|      0|  MD.lendMovie("B 1111 D F You've Got Mail, 1998", MCD);
+   86|      0|  MD.lendMovie("B 1111 D C 2 1975 Blah Blah", MCD);
+   87|      0|  std::cout << "getting history of Mickey Mouse: " << std::endl;
+   88|      0|  MCD.getHistory(1111);
+   89|      0|  std::cout << "-----" << std::endl;
+   90|      0|  MD.getInventory();
+   92|      0|  return 0;
+   93|      0|};
+  104|      0|    std::cout << "There was an error." << std::endl;
+  105|      0|  }
+Mon Dec  5 23:52:19 PST 2022
+=====================================================
+To create an output.txt file with all the output from this script
+Run the below command
+      ./create-output.sh > output.txt 2>&1 
+=====================================================
